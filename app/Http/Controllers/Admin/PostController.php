@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -45,10 +46,18 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:40',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image'
         ]);
 
         $data = $request->all();
+
+        if(array_key_exists('image',$data)){
+            $img_path = Storage::put('covers',$data['image']);
+            $data['cover'] = $img_path;
+        }
+
+
         $newPost = new Post();
         $slug = Str::slug($data['title'], '-');
         $slugI = $slug;
@@ -108,10 +117,18 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:40',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image'
         ]);
 
         $data = $request->all();
+
+        if(array_key_exists('image',$data)){
+            $img_path = Storage::put('covers',$data['image']);
+            Storage::delete($post->cover);
+            $data['cover'] = $img_path;
+        }
+
         if($data['title'] != $post->title){
             $slug = Str::slug($data['title'], '-');
             $slugI = $slug;
@@ -142,6 +159,8 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
+        Storage::delete($post->cover);
 
         return redirect()->route('admin.posts.index')->with('delete','post eliminato con successo. Id post:' .$post->id);
     }

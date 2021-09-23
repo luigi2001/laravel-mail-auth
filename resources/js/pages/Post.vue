@@ -1,5 +1,6 @@
 <template>
     <div class="container text-center">
+        <img :src="post.cover" :alt="post.title">
         <div class="box" v-if="post.category || post.tags">
             <span v-if="post.category">{{post.category.name}} |</span>
             <span v-for="tag in post.tags" :key="tag.id">{{tag.name}} - </span>

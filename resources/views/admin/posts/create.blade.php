@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('admin.posts.store')}}" method="post" class="container">
+<form action="{{ route('admin.posts.store')}}" method="post" class="container" enctype="multipart/form-data">
     @csrf
   <div class="mb-3">
     <label for="titolo" class="form-label">titolo</label>
@@ -26,6 +26,11 @@
       <label class="form-label btn" for="{{ $tag->id }}">{{ $tag->name }}</label>
       @endforeach
     </div>
+  </div>
+  <div class="mb-3">
+    <h5>cover</h5>
+    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+    @error('image') <div class="btn btn-danger">{{ $message }}</div> @enderror
   </div>
   <div class="mb-3">
     <label for="contenuto" class="form-label">contenuto</label>

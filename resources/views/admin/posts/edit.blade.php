@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('admin.posts.update', $post->id) }}" method="post" class="container">
+<form action="{{ route('admin.posts.update', $post->id) }}" method="post" class="container" enctype="multipart/form-data">
     @method('PATCH')
     @csrf
   <div class="mb-3">
@@ -27,6 +27,14 @@
       <label class="form-label btn" for="{{ $tag->id }}">{{ $tag->name }}</label>
       @endforeach
     </div>
+  </div>
+  <div class="mb-3">
+    <h5>cover</h5>
+    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+    @error('image') <div class="btn btn-danger">{{ $message }}</div> @enderror
+    @if($post->cover)
+      <img src="{{asset('storage/'. $post->cover)}}" alt="{{ $post->title }}">
+    @endif  
   </div>
   <div class="mb-3">
     <label for="contenuto" class="form-label">contenuto</label>

@@ -3,6 +3,9 @@
 @section('content')
 <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
+    @if($post->cover)
+      <img src="{{asset('storage/'. $post->cover)}}" alt="{{ $post->title }}">
+    @endif  
     <li class="list-group-item">{{ $post->title }}</li>
     @if($post->category)
     <li class="list-group-item">{{ $post->category->name }}</li>

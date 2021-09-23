@@ -2382,6 +2382,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   data: function data() {
@@ -39071,6 +39072,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container text-center" }, [
+    _c("img", { attrs: { src: _vm.post.cover, alt: _vm.post.title } }),
+    _vm._v(" "),
     _vm.post.category || _vm.post.tags
       ? _c(
           "div",
