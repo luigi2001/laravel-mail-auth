@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/posts','Api\PostController@index');
 
 Route::get('/post/{slug}', 'Api\PostController@show');
+
+Route::post('/contacts','Api\ContactController@store');
